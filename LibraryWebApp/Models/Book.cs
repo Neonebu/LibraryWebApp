@@ -12,5 +12,7 @@ namespace LibraryWebApp.Models
         public required string Author { get; set; }
         public required string Status { get; set; }
 
+        public required uint BookCount { get; set; }
+
     }
 }

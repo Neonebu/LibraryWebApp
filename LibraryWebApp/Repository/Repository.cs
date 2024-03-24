@@ -40,11 +40,10 @@ namespace LibraryWebApp.Repository
                 return query.ToList();
             }
         }
-        public virtual TEntity GetByEmail(object id)
+        public virtual TEntity GetById(object id)
         {
             return dbSet.Find(id);
         }
-
         public virtual void Insert(TEntity entity)
         {
             dbSet.Add(entity);

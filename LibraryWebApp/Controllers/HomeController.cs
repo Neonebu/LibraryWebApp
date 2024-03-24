@@ -1,6 +1,7 @@
 using LibraryWebApp.Models;
 using LibraryWebApp.UOW;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
 namespace LibraryWebApp.Controllers
@@ -13,11 +14,29 @@ namespace LibraryWebApp.Controllers
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
+            try
+            {
+                Book b = unitOfWork.BookRepository.GetById(1);
+                if(b!= null)
+                {
+
+                }
+                else
+                {
+                    Book book = new Book { Author = "test", BookCount = 3, Name = "ExampleName", Status = "available", Id = 0, Year = 1994 };
+                    unitOfWork.BookRepository.Insert(book);
+                    unitOfWork.Save();                  
+                }
+            }catch(Exception ex)
+            {
+                
+            }
         }
 
         public IActionResult Index()
         {
-            return View();
+            var books = unitOfWork.BookRepository.Get();
+            return View(books);
         }
 
         public IActionResult Login()
@@ -29,10 +48,10 @@ namespace LibraryWebApp.Controllers
             return View();
         }
         [HttpPost]
-        [ActionName("Register")]
-        public ActionResult Register(User user)
+        [ActionName("SendRegister")]
+        public ActionResult SendRegister(User user)
         {
-            var users = unitOfWork.UserRepository.GetByEmail(user.Email);
+            var users = unitOfWork.UserRepository.GetById(user.Email);
             if (users == null)
             {
                 bool check = MailModel.sendEmail(user);

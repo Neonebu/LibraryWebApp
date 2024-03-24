@@ -8,6 +8,7 @@ namespace LibraryWebApp.UOW
     {
         private LibraryContext _context = new LibraryContext();
         private Repository<User>? userRepo;
+        private Repository<Book>? bookRepo;
         public Repository<User> UserRepository
         {
             get
@@ -18,6 +19,17 @@ namespace LibraryWebApp.UOW
                     this.userRepo = new Repository<User>(_context);
                 }
                 return userRepo;
+            }
+        }
+        public Repository<Book> BookRepository
+        {
+            get
+            {
+                if (this.bookRepo == null)
+                {
+                    this.bookRepo = new Repository<Book>(_context);
+                }
+                return bookRepo;
             }
         }
         public void Save()
