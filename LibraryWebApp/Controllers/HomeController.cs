@@ -48,28 +48,28 @@ namespace LibraryWebApp.Controllers
             return View();
         }
         [HttpPost]
-        [ActionName("SendRegister")]
-        public ActionResult SendRegister(User user)
+        [ActionName("Register")]
+        public ActionResult Register(User user)
         {
-            var users = unitOfWork.UserRepository.GetById(user.Email);
-            if (users == null)
-            {
-                bool check = MailModel.sendEmail(user);
-                if (check)
-                {
-                    ViewBag.Test = "Please check your email";
-                    unitOfWork.UserRepository.Insert(user);
-                }
-                else
-                {
-                    ViewBag.Test = "Email Couldnt Send";
-                }
-                return View();
-            }
-            else
-            {
+            //var users = unitOfWork.UserRepository.GetById(user.Email);
+            //if (users == null)
+            //{
+            //    bool check = MailModel.sendEmail(user);
+            //    if (check)
+            //    {
+            //        ViewBag.Test = "Please check your email";
+            //        unitOfWork.UserRepository.Insert(user);
+            //    }
+            //    else
+            //    {
+            //        ViewBag.Test = "Email Couldnt Send";
+            //    }
+            //    return View();
+            //}
+            //else
+            //{
 
-            }
+            //}
             return View();
         }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
