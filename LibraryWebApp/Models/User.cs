@@ -14,5 +14,9 @@ namespace LibraryWebApp.Models
         public required string Email { get; set; }
         [MaxLength(15)]
         public required string Password { get; set; }
+
+        public User() {
+
+        }
     }
 }

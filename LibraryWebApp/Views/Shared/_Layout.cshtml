@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@inject IHttpContextAccessor context;
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -9,13 +10,13 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/LibraryWebApp.styles.css" asp-append-version="true" />
 </head>
-<body>
+<body onload="userCred()">
     <header>
         <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#">Library</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
+                    <a class="navbar-brand" href="#">Library</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarColor01">
                     <ul class="navbar-nav me-auto">
@@ -26,14 +27,14 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Login" style="@ViewBag.style" >Login</a>
+                            <a class="nav-link" asp-area="" asp-controller="Home" id="login"asp-action="Login">Login</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Register" style="@ViewBag.style">Register</a>
+                            <a class="nav-link" asp-area="" asp-controller="Home" id="register" asp-action="Register">Register</a>
                         </li>
                     </ul>
                     <div class="d-flex flex-row-reverse bd-highlight">
-                        <div class="p-2 bd-highlight" id="userCred">@ViewBag.user</div>
+                        <div class="p-2 bd-highlight" id="userCred"></div>
                     </div>
                     <form class="d-flex">
                         <input class="form-control me-sm-2" type="search" placeholder="Search">

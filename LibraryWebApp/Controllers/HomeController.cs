@@ -1,7 +1,9 @@
 using LibraryWebApp.Models;
 using LibraryWebApp.UOW;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using System.Diagnostics;
 
 namespace LibraryWebApp.Controllers
@@ -10,30 +12,16 @@ namespace LibraryWebApp.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private UnitOfWork unitOfWork = new UnitOfWork();
-        public HomeController(ILogger<HomeController> logger)
+        private readonly IHttpContextAccessor _contextAccessor;
+        public HomeController(ILogger<HomeController> logger,IHttpContextAccessor httpContextAccessor)
         {
             _logger = logger;
-            try
-            {
-                Book b = unitOfWork.BookRepository.GetById(1);
-                if(b!= null)
-                {
-
-                }
-                else
-                {
-                    Book book = new Book { Author = "test", BookCount = 3, Name = "ExampleName", Status = "available", Id = 0, Year = 1994 };
-                    unitOfWork.BookRepository.Insert(book);
-                    unitOfWork.Save();                  
-                }
-            }catch(Exception ex)
-            {
-                
-            }
+            _contextAccessor = httpContextAccessor;
         }
 
         public IActionResult Index()
         {
+            populateTable();
             var books = unitOfWork.BookRepository.Get();
             return View(books);
         }
@@ -42,7 +30,7 @@ namespace LibraryWebApp.Controllers
         {
             return View();
         }
-        public IActionResult Register() 
+        public IActionResult Register()
         {
             return View();
         }
@@ -52,8 +40,15 @@ namespace LibraryWebApp.Controllers
         {
             if (user != null)
             {
-                ViewBag.User = user.FirstName + " " + user.LastName;
-                ViewBag.style = "display:none";
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
+#pragma warning disable CS8604 // Possible null reference argument.
+                //_contextAccessor.HttpContext.Session.SetString("display", "display:none");
+                //_contextAccessor.HttpContext.Session.SetString("username", user.FirstName + " " + user.LastName);
+#pragma warning restore CS8604 // Possible null reference argument.
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
+                //ViewBag.User = user.FirstName + " " + user.LastName;
+                //ViewBag.style = "display:none";
+
             }
             //var users = unitOfWork.UserRepository.GetById(user.Email);
             //if (users == null)
@@ -80,6 +75,27 @@ namespace LibraryWebApp.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+        public void populateTable()
+        {
+            try
+            {
+                Book b = unitOfWork.BookRepository.GetById(1);
+                if (b != null)
+                {
+
+                }
+                else
+                {
+                    Book book = new Book { Author = "test", BookCount = 3, Name = "ExampleName", Status = "available", Id = 0, Year = 1994 };
+                    unitOfWork.BookRepository.Insert(book);
+                    unitOfWork.Save();
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
         }
     }
 }
