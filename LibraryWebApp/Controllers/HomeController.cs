@@ -10,7 +10,6 @@ namespace LibraryWebApp.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private UnitOfWork unitOfWork = new UnitOfWork();
-
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
@@ -51,6 +50,11 @@ namespace LibraryWebApp.Controllers
         [ActionName("Register")]
         public ActionResult Register(User user)
         {
+            if (user != null)
+            {
+                ViewBag.User = user.FirstName + " " + user.LastName;
+                ViewBag.style = "display:none";
+            }
             //var users = unitOfWork.UserRepository.GetById(user.Email);
             //if (users == null)
             //{

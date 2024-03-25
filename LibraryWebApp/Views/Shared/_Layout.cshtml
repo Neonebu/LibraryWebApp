@@ -26,14 +26,14 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Login" >Login</a>
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Login" style="@ViewBag.style" >Login</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Register">Register</a>
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Register" style="@ViewBag.style">Register</a>
                         </li>
                     </ul>
                     <div class="d-flex flex-row-reverse bd-highlight">
-                        <div class="p-2 bd-highlight" id="userCred">Flex item 1</div>
+                        <div class="p-2 bd-highlight" id="userCred">@ViewBag.user</div>
                     </div>
                     <form class="d-flex">
                         <input class="form-control me-sm-2" type="search" placeholder="Search">

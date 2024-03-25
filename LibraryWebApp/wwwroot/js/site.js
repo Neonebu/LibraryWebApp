@@ -1,16 +1,20 @@
 ﻿var mainUrl = window.location.origin;
-var userCred = document.getElementById("userCred");
 function RegisterJs() {
     var regform = document.getElementById("registerForm");
-    const formData = new FormData(regform);
-    userCred.style.display = "block";
-    console.log("registerjs " + isRegClc);
-    //$.ajax({
-    //    type: "POST",
-    //    url: 'Home/SendRegister',
-    //    data: formData,
-    //});
-    return true;
+    var formData = new FormData(regform);
+    $.ajax({
+        type: "POST",
+        url: 'Register',
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function () {
+            alert('success');
+        },
+        error: function () {
+            alert('failure');
+        }
+    });
 }
 function checkExists(element) {
     if (typeof (element) != 'undefined' && element != null) {
