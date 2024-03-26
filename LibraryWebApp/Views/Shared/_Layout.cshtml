@@ -5,17 +5,21 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - LibraryWebApp</title>
-    @* <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" /> commented default one*@
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/MyStyleSheet.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/LibraryWebApp.styles.css" asp-append-version="true" />
+    <script src=https: //cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
 </head>
 <body onload="userCred()">
     <header>
         <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
             <div class="container-fluid">
                     <a class="navbar-brand" href="#">Library</a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="dropdown" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarColor01">
@@ -34,18 +38,28 @@
                         </li>
                     </ul>
                     <div class="d-flex flex-row-reverse bd-highlight">
-                        <div class="p-2 bd-highlight" id="userCred"></div>
+  @*                       <div class="p-2 bd-highlight" id="userCred"></div> *@
+                        <div class="btn-group">
+                            <button type="button" id ="userCred"class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            </button>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="#">Action</a>
+                                <a class="dropdown-item" href="#">Another action</a>
+                                <a class="dropdown-item" href="#">Something else here</a>
+                                <a class="dropdown-item" href="#">Logout</a>
+                            </div>
+                        </div>
                     </div>
-                    <form class="d-flex">
+@*                     <form class="d-flex">
                         <input class="form-control me-sm-2" type="search" placeholder="Search">
                         <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-                    </form>
+                    </form> *@
                 </div>
 
             </div>
         </nav>
     </header>
-    <div class="container">
+    <div class="container" style="color:wheat">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
@@ -56,10 +70,6 @@
             &copy; 2024 - LibraryWebApp
         </div>
     </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    @* <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script> project default commented*@ 
-    <script src= https: //cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script> @* getbootstrap.com *@
-    <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

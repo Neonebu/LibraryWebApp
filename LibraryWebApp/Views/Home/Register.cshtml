@@ -20,7 +20,7 @@
             <div id="card-title">
                 <div class="underline-title"></div>
             </div>
-            <form id="registerForm" method="post" class="form" onsubmit="RegisterJs()">
+            <form id="registerForm" method="post" class="form" onsubmit="return returnFalse()">
                 <label style="padding-top:13px">
                     &nbsp;Name
                 </label>
@@ -45,7 +45,7 @@
                     <legend id="forgot-pass"></legend>
                 </a>
                 <div class="containerBtn">
-                    <input id="register-btn" type="submit" name="submit"value="Register" />
+                    <input id="register-btn" type="submit" name="submit"onclick="RegisterJs()" value="Register" />
                 </div>
             </form>
         </div>

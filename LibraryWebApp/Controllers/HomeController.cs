@@ -38,8 +38,8 @@ namespace LibraryWebApp.Controllers
         [ActionName("Register")]
         public ActionResult Register(User user)
         {
-            if (user != null)
-            {
+            //if (user != null)
+            //{
 #pragma warning disable CS8602 // Dereference of a possibly null reference.
 #pragma warning disable CS8604 // Possible null reference argument.
                 //_contextAccessor.HttpContext.Session.SetString("display", "display:none");
@@ -49,7 +49,7 @@ namespace LibraryWebApp.Controllers
                 //ViewBag.User = user.FirstName + " " + user.LastName;
                 //ViewBag.style = "display:none";
 
-            }
+            //}
             //var users = unitOfWork.UserRepository.GetById(user.Email);
             //if (users == null)
             //{

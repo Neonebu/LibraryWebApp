@@ -6,12 +6,35 @@
 <div class="text-center" onload="indexOnload()">
     <h1 class="display-4">Welcome</h1>
     @*     <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p> *@
-@*     <table class="table table-responsive table-hover">
-        @foreach (var item in Model)
-        {
-            <td>
-                @item.Name
-            </td>
-        }
-    </table> *@
+    <table class="table table-responsive table-hover">
+       <thead>
+           <tr class="table-active">
+                <th>Name</th>
+                <th>Year</th>
+                <th>Author</th>
+                <th>Status</th>
+                <th>BookCount</th>
+           </tr>
+       </thead>
+       <tbody>
+            @if(Model !=null)
+            {
+                @foreach(var book in Model)
+                {
+                    <tr>
+                        <td>@book.Name</td>
+                        <td>@book.Year</td>
+                        <td>@book.Author</td>
+                        <td>@book.Status</td>
+                        <td>@book.BookCount</td>
+                         <td>
+                             <div class="btn-group btn-group-sm"></div>
+                             <a asp-controller="Home" asp-action="TakeBook" class="btn btn-primary">Order</a>
+                             <a asp-controller="Home" asp-action="GiveBook" class="btn btn-primary">Put</a>
+                         </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
 </div>
