@@ -19,7 +19,7 @@
             <div id="card-title">
                 <div class="underline-title"></div>
             </div>
-            <form method="post" class="form" asp-controller="Home" asp-action="Login">
+            <form method="post" class="form" id="loginForm" onsubmit="return returnFalse()">
                 <label style="padding-top:13px">
                     &nbsp;Name
                 </label>
@@ -44,7 +44,7 @@
                     <legend id="forgot-pass"></legend>
                 </a>
                 <div class="containerBtn">
-                    <input id="login-btn" type="submit" name="submit" value="Login" />
+                    <input id="login-btn" type="submit" name="submit" onclick="LoginJs()" value="Login" />
                 </div>
             </form>
         </div>

@@ -30,6 +30,27 @@ namespace LibraryWebApp.Controllers
         {
             return View();
         }
+        [HttpPost]
+        [ActionName("Login")]
+        public ActionResult Login(User user)
+        {
+            if (user != null && user.FirstName != null && user.LastName != null && user.Email != null && user.Password != null)
+            {
+                var users = unitOfWork.UserRepository.GetById(user.Email);
+                if(users.Password == user.Password)
+                {
+                    return Json(true);
+                }
+                else
+                {
+                    return Json(false);
+                }
+            }
+            else
+            {
+                return Json(false);
+            }
+        }
         public IActionResult Register()
         {
             return View();
@@ -38,38 +59,39 @@ namespace LibraryWebApp.Controllers
         [ActionName("Register")]
         public ActionResult Register(User user)
         {
-            //if (user != null)
-            //{
-#pragma warning disable CS8602 // Dereference of a possibly null reference.
-#pragma warning disable CS8604 // Possible null reference argument.
-                //_contextAccessor.HttpContext.Session.SetString("display", "display:none");
-                //_contextAccessor.HttpContext.Session.SetString("username", user.FirstName + " " + user.LastName);
-#pragma warning restore CS8604 // Possible null reference argument.
-#pragma warning restore CS8602 // Dereference of a possibly null reference.
-                //ViewBag.User = user.FirstName + " " + user.LastName;
-                //ViewBag.style = "display:none";
+            if (user != null && user.FirstName != null && user.LastName !=null && user.Email != null && user.Password!=null)
+            {
+                var users = unitOfWork.UserRepository.GetById(user.Email);
+                if(users == null)
+                {
+                    bool check = MailModel.sendEmail(user);
+                    if (check)
+                    {
+                        unitOfWork.UserRepository.Insert(user);
+                        unitOfWork.Save();
+                        return Json(true);
+                    }
+                    else
+                    {
+                        return Json(false);
+                    }
 
-            //}
-            //var users = unitOfWork.UserRepository.GetById(user.Email);
-            //if (users == null)
-            //{
-            //    bool check = MailModel.sendEmail(user);
-            //    if (check)
-            //    {
-            //        ViewBag.Test = "Please check your email";
-            //        unitOfWork.UserRepository.Insert(user);
-            //    }
-            //    else
-            //    {
-            //        ViewBag.Test = "Email Couldnt Send";
-            //    }
-            //    return View();
-            //}
-            //else
-            //{
-
-            //}
-            return View();
+                }
+                else
+                {
+                    return Json(true);
+                }
+            }
+            else
+            {
+                return Json(false);
+            }
+        }
+        [HttpGet]
+        [ActionName("TakeBook")] 
+        public ActionResult TakeBook()
+        {
+            return Json(true);
         }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

@@ -9,15 +9,11 @@ namespace LibraryWebApp.Models
         public required string To { get;set;}
         public required string Subject { get;set;}
         public required string Body { get;set;}
-        public static string getUserEmail(User user)
-        {
-            return "oguzcansirolu1@gmail.com";
-        }
         public static bool sendEmail(User user)
         {
             bool send = false;
             MailMessage mail = new MailMessage();
-            userEmail = getUserEmail(user);
+            userEmail = user.Email;
             mail.To.Add(userEmail);
             mail.From = new MailAddress("oguzcan34@zohomail.com");
             mail.Subject = "Activation";

@@ -1,6 +1,5 @@
 ﻿var mainUrl = window.location.origin;
-function RegisterJs(e) {
-    console.log("here");
+function RegisterJs() {
     var regform = document.getElementById("registerForm");
     var formData = new FormData(regform);
     var firstname = formData.get("firstname");
@@ -9,21 +8,60 @@ function RegisterJs(e) {
     $.ajax({
         type: "POST",
         url: 'Register',
-        data: formData.values,
+        data: formData,
+        processData: false,
+        contentType: false,
         async: false,
-        success: function () {
-            console.log("succes");
-            //document.cookie = "firstname=" + firstname + "," + "lastname=" + lastname + ",page=0" + ";path=/";
-            //window.location.replace(mainUrl);
-            bool = true;
+        success: function (data) {           
+            bool = data;
         },
         error: function () {
             bool = false;
             console.log("error");
         }
     });
-    console.log("bool " + bool);
+    if (bool == true) {
+        document.cookie = "firstname=" + firstname + "," + "lastname=" + lastname + ",page=0" + ";path=/";
+        window.location.replace(mainUrl);
+    }
     return bool;
+}
+function LoginJs() {
+    console.log("login")
+    var logform = document.getElementById("loginForm");
+    var formData = new FormData(logform);
+    var firstname = formData.get("firstname");
+    var lastname = formData.get("lastname");
+    var bool = false;
+    $.ajax({
+        type: "POST",
+        url: 'Login',
+        data: formData,
+        processData: false,
+        contentType: false,
+        async: false,
+        success: function (data) {
+            bool = data;
+        },
+        error: function () {
+            bool = false;
+            console.log("error");
+        }
+    });
+    console.log("bool " + bool)
+    if (bool == true) {
+        document.cookie = "firstname=" + firstname + "," + "lastname=" + lastname + ",page=0" + ";path=/";
+        window.location.replace(mainUrl);
+    }
+    return bool;
+}
+function logoutJs() {
+    var reg = document.getElementById("register");
+    var log = document.getElementById("login");
+    document.getElementById("userCred").innerText = "";
+    deleteAllCookies();
+    reg.style.display = "block";
+    log.style.display = "block";
 }
 function userCred() {
     var str_array = document.cookie.split(',');
@@ -51,4 +89,14 @@ function checkExists(element) {
 }
 function returnFalse() {
     return false;
+}
+function deleteAllCookies() {
+    const cookies = document.cookie.split(";");
+
+    for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i];
+        const eqPos = cookie.indexOf("=");
+        const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+        document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+    }
 }
